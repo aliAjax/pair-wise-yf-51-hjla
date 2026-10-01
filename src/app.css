@@ -46,6 +46,10 @@ header p, header small { color: #697880; margin: 0; }
 .chip.待审 { background: #fff1d8; color: #996515; }
 .chip.已通过 { background: #def5ee; color: #0f735f; }
 .chip.退回 { background: #fde5e5; color: #a43838; }
+.chip.已失效 { background: #fde5e5; color: #a43838; }
+.cue.已失效 { border-left-color: #d94c4c; background: #fff7f7; }
+.danger { color: #c64d4d; }
+.blocker-text { color: #a43838 !important; font-weight: 600; }
 .right-stack { display: grid; gap: 18px; }
 .label { display: grid; gap: 6px; color: #66767d; font-size: 13px; margin-bottom: 10px; }
 .input, .textarea { width: 100%; border: 1px solid #cdd9dc; border-radius: 8px; padding: 9px 10px; background: #fbfdfd; color: #17212b; }
@@ -66,5 +70,39 @@ header p, header small { color: #697880; margin: 0; }
 .events article { border-bottom: 1px solid #e5ebec; padding-bottom: 8px; }
 .events p { margin: 5px 0; color: #65757c; }
 .events small { color: #849097; }
+.notice { border-radius: 9px; padding: 9px 11px; margin: 8px 0; }
+.notice p { margin: 4px 0 0; font-size: 13px; }
+.notice.ok { background: #e8f6f1; border: 1px solid #9ad6c6; }
+.notice.conflict { background: #fdf2e2; border: 1px solid #e9bd7e; }
+.notice.blocked { background: #fde8e8; border: 1px solid #e6a2a2; }
+.muted { color: #849097; font-size: 13px; }
+.verdicts { margin-top: 10px; display: grid; gap: 7px; }
+.verdict { border-radius: 8px; padding: 8px 10px; display: grid; gap: 2px; font-size: 12px; }
+.verdict span { font-weight: 700; }
+.verdict small { color: #7d8a90; }
+.verdict p { margin: 2px 0 0; color: #5f6d73; }
+.verdict.active { background: #e8f6f1; border: 1px solid #9ad6c6; }
+.verdict.expired { background: #f1f4f5; border: 1px dashed #b9c4c8; opacity: .75; }
+.delivery { margin-top: 18px; }
+.gate-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; }
+.gate { border: 1px solid #dde5e7; border-radius: 10px; padding: 12px; background: #fbfdfd; }
+.gate.ready { border-left: 4px solid #168f7f; }
+.gate.blocked { border-left: 4px solid #d94c4c; background: #fff9f9; }
+.gate header { display: flex; justify-content: space-between; align-items: center; margin: 0 0 6px; }
+.gate p { margin: 0 0 8px; color: #66767d; font-size: 13px; }
+.gate ul { margin: 8px 0 0; padding-left: 18px; color: #a43838; font-size: 12px; display: grid; gap: 4px; }
+.runs { margin-top: 16px; display: grid; gap: 10px; }
+.runs h3 { margin: 0; font-size: 15px; }
+.run { border: 1px solid #dde5e7; border-radius: 10px; padding: 11px 12px; }
+.run-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.run-head small { color: #85929a; margin-left: auto; }
+.run > p { margin: 8px 0 0; font-size: 13px; }
+.run-langs { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 9px; margin-top: 9px; }
+.lang { border-radius: 8px; padding: 8px 10px; display: grid; gap: 2px; font-size: 12px; background: #f1f4f5; }
+.lang b { font-size: 13px; }
+.lang.完成 { background: #e8f6f1; }
+.lang.失败 { background: #fde8e8; }
+.lang.进行中 { background: #fff4dc; }
+.lang small { color: #66767d; word-break: break-all; }
 @media(max-width: 1050px) { .shell { grid-template-columns: 1fr; } .sidebar { position: static; height: auto; flex-direction: row; flex-wrap: wrap; } .keyboard { margin: 0; width: 100%; } .editor-grid, .bottom-grid { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(2, 1fr); } }
 @media(max-width: 680px) { main { padding: 16px; } header { flex-direction: column; } .metrics, .cue-form, .time-fields { grid-template-columns: 1fr; } .cue { grid-template-columns: 70px 1fr; } .cue > *:nth-child(n+3) { grid-column: 2; } }

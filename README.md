@@ -12,6 +12,19 @@ SvelteKit、TypeScript、Skeleton UI、Svelte stores、TanStack Query、Superfor
 npm install
 npm run dev
 npm run build
+npm run check         # svelte-check 类型检查
+npm run test:delivery # 交付门 / 审校 / 交付包引擎测试（node:test）
 ```
 
 开发端口：62016
+
+## 可重算交付检查
+
+核心逻辑在 `src/lib/delivery/engine.ts`（纯函数，无框架依赖），由 `src/lib/stores/subtitles.ts` 接入响应式状态。
+
+- **失效传播**：每条目标字幕保存原片段指纹（id+时间码+原文）与锁定术语指纹。原片段拆分 / 合并、时间码移动、原文修改或术语锁定变化后，相关语言字幕立即标记「已失效」并生成阻塞项（`原片段拆分` / `原片段合并` / `时间码变更` / `原文变更` / `术语锁定变更`），可单条或整轨重算；重算产生新版本号。
+- **交付门**：存在任何失效、未译或未通过审校的字幕时，`requestDelivery` 只建立「已阻塞」记录并保留阻塞项快照，不生成任何交付包。
+- **双人审校**：审校结论绑定字幕 `rev`。同版本先到者生效，后到的第二名审校员收到「版本冲突」+ 先到结论 + 该语言最新阻塞项；同一审校员重复确认幂等。字幕重算后旧结论自动标记「已过期」。
+- **失败隔离与重试**：交付按语言独立执行（每语言 450ms 模拟导出），单语言失败保留其余语言产物，`retryDelivery` 只重新排队失败语言。
+- **请求幂等**：相同 `requestId` 的重复请求原样返回首次 run，不新建任务；历史 run 不受后续数据变化影响。
+- **崩溃恢复**：localStorage 持久化；页面重载时进行中 / 等待的语言标记为失败，可直接重试补齐。
